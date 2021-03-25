@@ -41,10 +41,7 @@ public class FogBroker extends PowerDatacenterBroker{
 				
 				String nodename = ModuleMapping.getDeviceHostModule(consumer);
 				
-				//System.out.println("edge:"+edge.toString());
-				
 				int nodeId = ModuleMapping.getFogDevIdByName(nodename);
-				//System.out.println(nodeId+"   "+nodename);
 				send(nodeId, 300, FogEvents.INITIALIZE_DATA_RETRIEVE, edge);
 				Log.writeInLogFile(this.getName(), "send to consumer "+consumer+" located in FogDev "+nodename+" INITIALIZE_DATA_RETRIEVE");
 			}

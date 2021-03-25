@@ -128,7 +128,8 @@ public class DataPlacement {
 	public static final String GraphPartitionStorage = "GraphPartitionStorage";
 
 	//public static final List<String> storageModes = Arrays.asList(CloudStorage, ClosestNode, FogStorage,GraphPartitionStorage);
-	public static final List<String> storageModes = Arrays.asList(FogStorage);
+	public static final List<String> storageModes = Arrays.asList(
+			FogStorage);
 
 	public static final List<Integer> nb_zones_list = Arrays.asList(5);
 	public static final List<Integer> nb_partitions_list = Arrays.asList(2,5);
@@ -232,7 +233,7 @@ public class DataPlacement {
 					e_sim = Calendar.getInstance().getTimeInMillis();
 					
 					System.out.println("cache_hit "+ ((float) cache_hit/nb_request));
-					System.out.println("cache_miss "+((float) (nb_request-cache_hit)/nb_request));
+					System.out.println("cache_miss "+((float) cache_miss/nb_request));
 					//org.fog.examples.Log.writeSimulationTime(nb_HGW, String.valueOf((e_sim - b_sim)/60000));
 		    	}
 		    	nb_DataCons_By_DataProd=i+5;

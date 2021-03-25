@@ -322,14 +322,15 @@ public class FogDevice extends PowerDatacenter {
 		
 		int consumerNode = (int) data[0];
 		String tupleType = (String) data[1];
+		Tuple tuple = this.getStoredTupleBytype(tupleType);
 		
-		if(this.storedData.contains(tupleType)) {
-			System.out.println("serving the request from the storage node");
+		if(this.storedData.contains(tuple)) {
+			//System.out.println("serving the request from the storage node");
 			//Log.writeInLogFile(this.getName(),"serving the request from the storage node");
 			DataPlacement.cache_miss++;
 			float latency = BasisDelayMatrix.getFatestLink( this.getId(),consumerNode);
 			
-			Tuple tuple = this.getStoredTupleBytype(tupleType);
+			
 			send(consumerNode, latency , FogEvents.DATA_RETREIVED, tupleType);
 			int nb_Unit = 1;
 			LatencyStats.add_Overall_read_Letency(LatencyStats.getOverall_read_Latency()+latency*nb_Unit);
@@ -338,11 +339,11 @@ public class FogDevice extends PowerDatacenter {
 		}
 		
 		else if(DataPlacement.fogcache.cachedata.containsKey(tupleType)) {
-			System.out.println("serving the request from the cache node");
+			//System.out.println("serving the request from the cache node");
 			//Log.writeInLogFile(this.getName(),"serving the request from the cache node");
 			DataPlacement.cache_hit++;
 			float latency = BasisDelayMatrix.getFatestLink(this.getId(),consumerNode);
-			Tuple tuple = this.getStoredTupleBytype(tupleType);
+
 			send(consumerNode, latency , FogEvents.DATA_RETREIVED, tupleType);
 			int nb_Unit = 1;
 			LatencyStats.add_Overall_read_Letency(LatencyStats.getOverall_read_Latency()+latency*nb_Unit);
@@ -415,6 +416,7 @@ public class FogDevice extends PowerDatacenter {
 		Tuple tuple = (Tuple) ev.getData();
 		
 		this.storedData.add(tuple);
+		//System.out.println("storedData"+storedData);
 		
 		////*System.out.println("tuple:"+tuple.toString());
 		Log.writeInLogFile(this.getName(), "tuple:"+tuple.toString());
